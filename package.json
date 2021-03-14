@@ -1,0 +1,29 @@
+{
+  "name": "nodejs-homework-tasks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "babel-node": "babel-node",
+    "task3-1": "nodemon --exec npm run babel-node -- task1.js",
+    "task3-2": "nodemon --exec npm run babel-node -- task2.js",
+    "task1": "nodemon src/task1.js",
+    "task2s": "nodemon src/task2nopipeline.js",
+    "task2r": "nodemon src/task2fullyinRAM.js",
+    "task2": "nodemon src/task2.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.8",
+    "@babel/node": "^7.13.0",
+    "@babel/preset-env": "^7.13.9",
+    "byline": "^5.0.0",
+    "nodemon": "^2.0.7",
+    "prettier": "2.2.1"
+  },
+  "dependencies": {
+    "csvtojson": "^2.0.10"
+  }
+}
