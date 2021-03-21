@@ -39,7 +39,5 @@ csv()
         });
         resolve();
       }),
-    (err) => {
-      console.log("Error happened on subscribe! ", err);
-    }
+    console.error
   );

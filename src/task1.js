@@ -6,4 +6,6 @@ const r1 = readline.createInterface({
   terminal: false
 });
 
-r1.on('line', cmd => void console.log(cmd.split("").reverse().join("")));
+const output = line => console.log(line.split("").reverse().join(""));
+
+r1.on('line', output);

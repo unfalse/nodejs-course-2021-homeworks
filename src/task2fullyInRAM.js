@@ -3,33 +3,32 @@ const csvFilePath = "nodejs-hw1-ex1.csv";
 const txtFilePath = "nodejs-hw1-ex1.txt";
 const fs = require("fs");
 
-fs.truncate(txtFilePath, 0, (e) => {
-  if (e) {
-    console.log("Error on truncating file!");
-    console.log(e);
+const UTF8 = 'utf8';
+
+fs.truncate(txtFilePath, 0, err => {
+  if (err) {
+    console.error(err);
   }
 });
 
+const flags = 'a';
 const writableStream = fs.createWriteStream(txtFilePath, {
-  flags: "a",
+  flags
 });
 
-writableStream.on("error", (e) => {
-  console.log("Error on writing file!");
-  console.log(e);
+writableStream.on("error", err => {
+  console.error(err);
 });
 
 csv()
   .fromFile(csvFilePath)
   .then((jsonObj) => {
     jsonObj.forEach(line => {
-      writableStream.write(JSON.stringify(line) + "\n", "utf8", (e) => {
-        if (e) {
-          console.log(JSON.stringify(e));
+      writableStream.write(JSON.stringify(line) + "\n", UTF8, err => {
+        if (err) {
+          console.error(JSON.stringify(err));
         }
       });
     });
   })
-  .catch((err) => {
-    console.log("Error happened on convert! ", err);
-  });
+  .catch(console.error);
