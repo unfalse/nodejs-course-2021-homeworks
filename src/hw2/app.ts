@@ -1,10 +1,10 @@
 import express from 'express';
 
-import { createUser, getAppRootResponse, getList, getUser, suggestUsers, updateUser, removeUser } from './requests';
+import { getAppRootResponse, getList, getUser, suggestUsers, updateUser, removeUser, createUser } from './requests';
 import { createUserSchema, updateUserSchema, validator } from './validation';
 
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
 
 app.use(express.json());
 
@@ -17,5 +17,5 @@ app.get('/suggest/:login/:limit', suggestUsers);
 app.delete('/remove/:id', removeUser);
 
 app.listen(port, () => {
-  console.log(`User service is listening at http://localhost:${port}`)
+    console.log(`User service is listening at http://localhost:${port}`);
 });
