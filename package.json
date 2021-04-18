@@ -6,11 +6,13 @@
   "scripts": {
     "babel-node": "babel-node",
     "lint": "eslint . --ext .ts",
-    "hw1task3-1": "nodemon --exec npm run babel-node -- src/hw1/task3-1.js",
-    "hw1task3-2": "nodemon --exec npm run babel-node -- src/hw1/task3-2.js",
-    "hw1task1": "nodemon src/hw1/task1.js",
-    "hw1task2": "nodemon src/hw1/task2.js",
-    "hw2task1": "nodemon src/hw2/app.ts"
+    "hw1-31": "nodemon --exec npm run babel-node -- src/hw1/task3-1.js",
+    "hw1-32": "nodemon --exec npm run babel-node -- src/hw1/task3-2.js",
+    "hw1-1": "nodemon src/hw1/task1.js",
+    "hw1-2": "nodemon src/hw1/task2.js",
+    "hw2-1": "nodemon src/hw2/app.ts",
+    "hw3OLD": "nodemon -r dotenv/config src/hw3/services/connect.ts",
+    "hw3": "nodemon -r dotenv/config src/hw3/app.ts"
   },
   "author": "",
   "license": "ISC",
@@ -34,9 +36,13 @@
   },
   "dependencies": {
     "csvtojson": "^2.0.10",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-joi-validation": "^5.0.0",
     "joi": "^17.4.0",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.6.2",
     "uuid": "^8.3.2"
   }
 }
