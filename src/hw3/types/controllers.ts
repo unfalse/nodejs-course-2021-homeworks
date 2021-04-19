@@ -1,13 +1,14 @@
 import { Model, ModelDefined } from 'sequelize';
+import { User } from './user';
 
-export type UsersControllerResult<U> = Promise<Model<U, U>>;
+export type UsersControllerResult = Promise<Model<User, User>>;
 
-export interface UsersControllerBase<U> {
-    userModel: ModelDefined<U, U>;
-    getUser(id: string): UsersControllerResult<U>;
-    createUser(user: U): UsersControllerResult<U>;
-    getList(): UsersControllerResult<U>[];
-    updateUser(user: U): UsersControllerResult<U>[];
-    suggestUsers(login: string, limit: number): UsersControllerResult<U>[];
-    removeUser(id: string): UsersControllerResult<U>[];
+export interface UsersControllerBase {
+    userModel: ModelDefined<User, User>;
+    getUser(id: string): UsersControllerResult;
+    createUser(user: User): UsersControllerResult;
+    getList(): UsersControllerResult[];
+    updateUser(user: User): Promise<number>;
+    suggestUsers(login: string, limit: number): UsersControllerResult[];
+    removeUser(id: string): UsersControllerResult[];
 }

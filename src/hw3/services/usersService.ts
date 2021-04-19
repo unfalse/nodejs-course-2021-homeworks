@@ -1,32 +1,30 @@
 import { v4 } from 'uuid';
 
 import { UsersControllerBase } from '../types';
-import { CreateUserParams, UsersServiceBase, UsersServiceResult } from '../types/services';
-import { UserBase } from '../types/user';
+import { UsersServiceBase, UsersServiceResult } from '../types/services';
+import { User } from '../types/user';
 
-export class UsersService<U extends UserBase> implements UsersServiceBase<U> {
-    controller: UsersControllerBase<U>;
+export class UsersService implements UsersServiceBase {
+    controller: UsersControllerBase;
 
-    constructor(controllerInst: UsersControllerBase<U>) {
+    constructor(controllerInst: UsersControllerBase) {
         this.controller = controllerInst;
     }
 
-    getList(): UsersServiceResult<U>[] {
+    getList(): UsersServiceResult[] {
         throw new Error('Method not implemented.');
     }
 
-    updateUser(user: U): UsersServiceResult<U>[] {
+    updateUser(user: User): Promise<number> {
+        return this.controller.updateUser(user);
+    }
+
+    removeUser(id: string): UsersServiceResult[] {
         throw new Error('Method not implemented.');
     }
 
-    removeUser(id: string): UsersServiceResult<U>[] {
-        throw new Error('Method not implemented.');
-    }
-
-    createUser({ age, login, password }: CreateUserParams): void {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const user: U = {
+    createUser({ age, login, password }: User): void {
+        const user: User = {
             age,
             id: v4(),
             login,
@@ -36,7 +34,7 @@ export class UsersService<U extends UserBase> implements UsersServiceBase<U> {
         this.controller.createUser(user);
     }
 
-    getUser(id: string): UsersServiceResult<U> {
+    getUser(id: string): UsersServiceResult {
         return this.controller.getUser(id);
     }
 }

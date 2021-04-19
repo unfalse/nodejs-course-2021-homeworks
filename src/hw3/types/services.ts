@@ -3,16 +3,17 @@ import { UsersControllerBase } from './controllers';
 import { User } from './user';
 
 export type CreateUserParams = Omit<User, 'id' | 'isdeleted'>;
+export type UpdateUserParams = Pick<User, 'age' | 'login' | 'password'>;
+export type RemoveUserParams = Pick<User, 'id'>;
+export type UsersServiceResult = Promise<Model<User, User>>;
 
-export type UsersServiceResult<U> = Promise<Model<U, U>>;
-
-export interface UsersServiceBase<U> {
-    controller: UsersControllerBase<U>;
-    getUser(id: string): UsersServiceResult<U>;
+export interface UsersServiceBase {
+    controller: UsersControllerBase;
+    getUser(id: string): UsersServiceResult;
     createUser(createParams: CreateUserParams): void;
-    getList(): UsersServiceResult<U>[];
-    updateUser(user: U): UsersServiceResult<U>[];
+    getList(): UsersServiceResult[];
+    updateUser(user: User): Promise<number>;
     // suggestUsers(login: string, limit: number): ControllerResult<U>[];
-    removeUser(id: string): UsersServiceResult<U>[];
+    removeUser(id: string): UsersServiceResult[];
 }
 

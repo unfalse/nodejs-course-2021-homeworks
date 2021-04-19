@@ -51,12 +51,26 @@ const User = sequelize.define('User', {
 });
 
 (async function Sync() {
-//     await sequelize.sync();
-//     console.log('synced!');
+    await sequelize.sync();
+    console.log('synced!');
 
     const users = await User.findAll();
     console.log(users.every(user => user instanceof User));
     console.log(JSON.stringify(users, null, 2));
+
+    const user = {
+        id: '3dfea2c5-47ae-4209-9a0b-222f1a717758',
+        login: 'Kane',
+        age: 24,
+        password: 'kane1234',
+        isdeleted: false
+    };
+    try {
+        const result = await User.update(user, { where: { id: user.id }, returning: false });
+        console.log(result);
+    } catch (e) {
+        console.log('Update has failed!');
+    }
     // const jane = User.build({
     //     login: 'Jane',
     //     password: 'jane1234',

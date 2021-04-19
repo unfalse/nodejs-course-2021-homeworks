@@ -11,7 +11,7 @@
     "hw1-1": "nodemon src/hw1/task1.js",
     "hw1-2": "nodemon src/hw1/task2.js",
     "hw2-1": "nodemon src/hw2/app.ts",
-    "hw3OLD": "nodemon -r dotenv/config src/hw3/services/connect.ts",
+    "playground": "nodemon -r dotenv/config src/hw3/services/connect.ts",
     "hw3": "nodemon -r dotenv/config src/hw3/app.ts"
   },
   "author": "",
