@@ -1,4 +1,5 @@
 import { Model } from 'sequelize';
+import { UserError, UserMethodResult, UsersUpdateResult } from './common';
 import { UsersControllerBase } from './controllers';
 import { User } from './user';
 
@@ -9,11 +10,10 @@ export type UsersServiceResult = Promise<Model<User, User>>;
 
 export interface UsersServiceBase {
     controller: UsersControllerBase;
-    getUser(id: string): UsersServiceResult;
-    createUser(createParams: CreateUserParams): void;
-    getList(): UsersServiceResult[];
-    updateUser(user: User): Promise<number>;
+    getUser(id: string): Promise<UserMethodResult>;
+    createUser(createParams: CreateUserParams): Promise<UserError>;
+    updateUser(user: User): Promise<UsersUpdateResult>;
     // suggestUsers(login: string, limit: number): ControllerResult<U>[];
-    removeUser(id: string): UsersServiceResult[];
+    removeUser(id: string): Promise<UserError>;
 }
 

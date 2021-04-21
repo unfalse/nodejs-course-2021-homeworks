@@ -1,6 +1,7 @@
 import { ModelDefined } from 'sequelize';
 
 import { User, UsersControllerBase } from '../types';
+import { UserError, UserMethodResult, UsersUpdateResult } from '../types/common';
 import { UsersControllerResult } from '../types/controllers';
 import { UpdateUserParams } from '../types/services';
 
@@ -11,11 +12,14 @@ export class UsersController implements UsersControllerBase {
         this.userModel = userModelInst;
     }
 
-    async updateUser(user: User): Promise<number> {
+    async updateUser(user: User): Promise<UsersUpdateResult> {
         const userValues: UpdateUserParams = {
             age: user.age,
             login: user.login,
             password: user.password
+        };
+        const result: UsersUpdateResult = {
+            updatedUsers: 0
         };
         try {
             const [updatedUsers]: [number] =
@@ -23,39 +27,48 @@ export class UsersController implements UsersControllerBase {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 await this.userModel.update(userValues, { where: { login: user.login }, returning: false }) as [number];
-            return updatedUsers;
+            result.updatedUsers = updatedUsers;
         } catch (e) {
-            throw new Error(e);
+            result.updatedUsers = 0;
+            result.errorMessage = e.message;
         }
+        return result;
     }
 
     suggestUsers(login: string, limit: number): UsersControllerResult[] {
         throw new Error('Method not implemented.');
     }
 
-    removeUser(id: string): UsersControllerResult[] {
-        throw new Error('Method not implemented.');
-    }
-
-    getList(): UsersControllerResult[] {
-        throw new Error('Method not implemented.');
-    }
-
-    async createUser(user: User): UsersControllerResult {
+    async removeUser(id: string): Promise<UserError> {
+        const result: UserError = {};
         try {
-            const newUser = await this.userModel.create(user);
-            return newUser;
+            await this.userModel.destroy({ where: { id } });
         } catch (e) {
-            throw new Error('Database access error');
+            result.errorMessage = e.message;
         }
+        return result;
     }
 
-    async getUser(id: string): UsersControllerResult {
+    async createUser(user: User): Promise<UserError> {
+        const result: UserError = {};
+        try {
+            await this.userModel.create(user);
+        } catch (e) {
+            result.errorMessage = e.message;
+        }
+        return result;
+    }
+
+    async getUser(id: string): Promise<UserMethodResult> {
+        const result: UserMethodResult = {
+            user: null
+        };
         try {
             const user = await this.userModel.findByPk(id);
-            return user;
+            result.user = user;
         } catch (e) {
-            throw new Error('Database access error');
+            result.errorMessage = e.message;
         }
+        return result;
     }
 }
