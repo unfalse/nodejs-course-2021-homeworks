@@ -11,7 +11,6 @@
     "hw1-1": "nodemon src/hw1/task1.js",
     "hw1-2": "nodemon src/hw1/task2.js",
     "hw2-1": "nodemon src/hw2/app.ts",
-    "playground": "nodemon -r dotenv/config src/hw3/services/connect.ts",
     "hw3": "nodemon -r dotenv/config src/hw3/app.ts"
   },
   "author": "",
@@ -28,6 +27,8 @@
     "@typescript-eslint/parser": "^4.21.0",
     "byline": "^5.0.0",
     "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",

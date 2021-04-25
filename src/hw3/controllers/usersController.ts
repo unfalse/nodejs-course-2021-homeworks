@@ -1,8 +1,7 @@
-import { ModelDefined } from 'sequelize';
+import { ModelDefined, Op } from 'sequelize';
 
 import { User, UsersControllerBase } from '../types';
-import { UserError, UserMethodResult, UsersUpdateResult } from '../types/common';
-import { UsersControllerResult } from '../types/controllers';
+import { UserError, UserMethodResult, UsersSuggestResult, UsersUpdateResult } from '../types/common';
 import { UpdateUserParams } from '../types/services';
 
 export class UsersController implements UsersControllerBase {
@@ -35,8 +34,17 @@ export class UsersController implements UsersControllerBase {
         return result;
     }
 
-    suggestUsers(login: string, limit: number): UsersControllerResult[] {
-        throw new Error('Method not implemented.');
+    async suggestUsers(login: string, limit: number): Promise<UsersSuggestResult> {
+        const result: UsersSuggestResult = {
+            users: null
+        };
+        try {
+            const users = await this.userModel.findAll({ limit, where: { login: { [Op.like]: `%${login}%` } } });
+            result.users = users;
+        } catch (e) {
+            result.errorMessage = e.message;
+        }
+        return result;
     }
 
     async removeUser(id: string): Promise<UserError> {

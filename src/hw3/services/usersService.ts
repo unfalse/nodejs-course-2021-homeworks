@@ -1,8 +1,8 @@
 import { v4 } from 'uuid';
 
 import { UsersControllerBase } from '../types';
-import { UserError, UserMethodResult, UsersUpdateResult } from '../types/common';
-import { UsersServiceBase, UsersServiceResult } from '../types/services';
+import { UserError, UserMethodResult, UsersSuggestResult, UsersUpdateResult } from '../types/common';
+import { UsersServiceBase } from '../types/services';
 import { User } from '../types/user';
 
 export class UsersService implements UsersServiceBase {
@@ -10,6 +10,10 @@ export class UsersService implements UsersServiceBase {
 
     constructor(controllerInst: UsersControllerBase) {
         this.controller = controllerInst;
+    }
+
+    suggestUsers(login: string, limit: number): Promise<UsersSuggestResult> {
+        return this.controller.suggestUsers(login, limit);
     }
 
     updateUser(user: User): Promise<UsersUpdateResult> {

@@ -1,5 +1,5 @@
 import { Model } from 'sequelize';
-import { UserError, UserMethodResult, UsersUpdateResult } from './common';
+import { UserError, UserMethodResult, UsersSuggestResult, UsersUpdateResult } from './common';
 import { UsersControllerBase } from './controllers';
 import { User } from './user';
 
@@ -13,7 +13,7 @@ export interface UsersServiceBase {
     getUser(id: string): Promise<UserMethodResult>;
     createUser(createParams: CreateUserParams): Promise<UserError>;
     updateUser(user: User): Promise<UsersUpdateResult>;
-    // suggestUsers(login: string, limit: number): ControllerResult<U>[];
+    suggestUsers(login: string, limit: number): Promise<UsersSuggestResult>;
     removeUser(id: string): Promise<UserError>;
 }
 

@@ -2,10 +2,9 @@ import { Request, Response, Router } from 'express';
 
 import { usersServiceInstance } from '../models/instances';
 import { User } from '../types';
-import { UserError, UserMethodResult, UsersUpdateResult } from '../types/common';
+import { UserError, UserMethodResult, UsersSuggestResult, UsersUpdateResult } from '../types/common';
 import { CreateUserSchema, createUserSchema, updateUserSchema, UpdateUserSchema, ValidatedRequest, validator } from '../validation';
 
-const NOT_FOUND = 404;
 const OK = 200;
 const SERVER_ERROR = 500;
 
@@ -42,10 +41,18 @@ const updateUser = async (req: ValidatedRequest<UpdateUserSchema>, res: Response
         res.status(SERVER_ERROR).send(`Error has happened! ${updateResult.errorMessage}`);
         return;
     }
-    res.status(OK).send(`${updateResult} rows was updated`);
+    res.status(OK).send(`Rows updated: ${updateResult.updatedUsers}`);
 };
 
-const suggestUsers = async (req: Request, res: Response) => { };
+const suggestUsers = async (req: Request, res: Response) => {
+    const { login, limit } = req.params;
+    const { users, errorMessage }: UsersSuggestResult = await usersServiceInstance.suggestUsers(login, +limit);
+    if (errorMessage) {
+        res.status(SERVER_ERROR).send(`Error has happened! ${errorMessage}`);
+        return;
+    }
+    res.send(users);
+};
 
 const removeUser = async (req: Request, res: Response) => {
     const { id } = req.params;

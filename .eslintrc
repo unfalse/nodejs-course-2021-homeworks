@@ -2,12 +2,14 @@
     "root": true,
     "parser": "@typescript-eslint/parser",
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "prettier"
     ],
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
     ],
     "env": {
         "browser": true,
@@ -41,7 +43,7 @@
         // Possible errors
         "comma-dangle": [
             2,
-            "never"
+            ""
         ],
         "no-cond-assign": [
             2,
@@ -327,7 +329,19 @@
             2,
             7
         ],
-        "no-bitwise": 2
+        "no-bitwise": 2,
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto",
+                "semi": true,
+                "trailingComma": "all",
+                "singleQuote": true,
+                "printWidth": 80,
+                "tabWidth": 4,
+                "arrowParens": "avoid"
+            }
+        ]
     },
     "globals": {
         "$": true,
