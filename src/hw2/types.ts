@@ -13,7 +13,7 @@ export type SuggestParams = {
 
 export type RemoveUserParams = Pick<User, 'id'>;
 export type UpdateUserParams = Pick<User, 'age' | 'login' | 'password'>;
-export type CreateUserParams = Pick<User, 'age' | 'login' | 'password'>;
+export type CreateUserParams = Omit<User, 'id' | 'isDeleted'>;
 
 export type RemoveUserResult = string | null;
 export type UpdateUserResult = boolean;
