@@ -22,7 +22,8 @@ export class UsersController implements UsersControllerBase {
         };
         try {
             const [updatedUsers]: [number] =
-                // I'm declining to take part in this "WhereOptions" typing insanity!
+                // TODO: тут честно, голову сломал, с типами перемудрили мне кажется, а нагуглить не смог,
+                // TODO: как правильно типизировать метод
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 await this.userModel.update(userValues, { where: { login: user.login }, returning: false }) as [number];

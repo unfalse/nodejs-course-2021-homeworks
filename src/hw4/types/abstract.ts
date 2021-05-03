@@ -20,9 +20,9 @@ export abstract class AbstractController<T> {
     abstract update(entity: T): Promise<UpdateResult>
 }
 
-export abstract class AbstractService<T> {
-    controller: AbstractController<T>;
-    constructor(controllerInst: AbstractController<T>) {
+export abstract class AbstractService<T, CTR> {
+    controller: CTR;
+    constructor(controllerInst: CTR) {
         this.controller = controllerInst;
     }
     abstract create(entity: T): Promise<UserError>

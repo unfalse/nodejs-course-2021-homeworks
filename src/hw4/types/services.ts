@@ -8,6 +8,8 @@ export type UpdateUserParams = Pick<User, 'age' | 'login' | 'password'>;
 export type RemoveUserParams = Pick<User, 'id'>;
 export type UsersServiceResult = Promise<Model<User, User>>;
 
+// TODO: Я думаю что данные интерфейсы с припиской Base всё-таки излишни и никакой пользы не приносят.
+// TODO: Абстрактные классы чуть лучше. Возможно, перепишу на них.
 export interface UsersServiceBase {
     controller: UsersControllerBase;
     getUser(id: string): Promise<UserMethodResult>;

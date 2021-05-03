@@ -5,14 +5,13 @@ import { AbstractService, UpdateResult } from '../types/abstract';
 import { GroupMethodResult, GroupsResult, UserError } from '../types/common';
 import { Group } from '../types/group';
 
-export class GroupsService extends AbstractService<Group> {
+export class GroupsService extends AbstractService<Group, GroupsController> {
     get(id: string): Promise<GroupMethodResult> {
       return this.controller.get(id) as Promise<GroupMethodResult>;
     }
 
     getAllGroups(): Promise<GroupsResult> {
-        // TODO: remove the tight coherence/cohesion
-        return (this.controller as GroupsController).getAllGroups();
+        return this.controller.getAllGroups();
     }
 
     create({ name, permissions }: Group): Promise<UserError> {
