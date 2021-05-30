@@ -21,11 +21,11 @@ export class UsersController implements UsersControllerBase {
             updatedUsers: 0
         };
         try {
-            const [updatedUsers]: [number] =
-                // I'm declining to take part in this "WhereOptions" typing insanity!
+            const [updatedUsers]: [number] = (
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                await this.userModel.update(userValues, { where: { login: user.login }, returning: false }) as [number];
+                await this.userModel.update(userValues, { where: { login: user.login }, returning: false }) as [number]
+            );
             result.updatedUsers = updatedUsers;
         } catch (e) {
             result.updatedUsers = 0;

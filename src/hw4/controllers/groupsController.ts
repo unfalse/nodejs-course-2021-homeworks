@@ -1,9 +1,20 @@
+import { ModelDefined } from 'sequelize/types';
+
+import { sequelize } from '../../hw3/data-access';
 import { AbstractController, UpdateResult } from '../types/abstract';
 import { GroupsResult, UserError } from '../types/common';
 import { GroupMethodResult } from '../types/common';
 import { Group } from '../types/group';
+import { UserGroup } from '../types/usergroup';
 
-export class GroupsController extends AbstractController<Group> {  
+export class GroupsController extends AbstractController<Group> {
+    userGroupModel: ModelDefined<UserGroup, UserGroup>;
+
+    constructor(groupModelInst: ModelDefined<Group, Group>, userGroupModelInst: ModelDefined<UserGroup, UserGroup>) {
+        super(groupModelInst);
+        this.userGroupModel = userGroupModelInst;
+    }
+
     async create(group: Group): Promise<UserError> {
         const result: UserError = {};
         try {
@@ -63,13 +74,32 @@ export class GroupsController extends AbstractController<Group> {
             updatedEntities: 0
         };
         try {
-            const [updatedEntities]: [number] =
+            const [updatedEntities]: [number] = (
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                await this.model.update(groupValues, { where: { name }, returning: false }) as [number];
+                await this.model.update(groupValues, { where: { name }, returning: false }) as [number]
+            );
             result.updatedEntities = updatedEntities;
         } catch (e) {
             result.updatedEntities = 0;
+            result.errorMessage = e.message;
+        }
+        return result;
+    }
+
+    async addUsersToGroup(userGroups: Array<UserGroup>): Promise<UserError> {
+        const result: UserError = {};
+        try {
+            await sequelize.transaction(async (t) => {
+
+                const userGroup = await this.userGroupModel.bulkCreate(
+                    userGroups,
+                    { transaction: t, returning: true }
+                );
+                return userGroup;
+
+            });
+        } catch (e) {
             result.errorMessage = e.message;
         }
         return result;

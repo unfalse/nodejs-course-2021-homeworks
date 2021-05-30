@@ -17,6 +17,7 @@ class GroupsRouter extends CRUDRouter {
       this.router.put('/update', this.update);
       this.router.delete('/remove/:id', this.remove);
       this.router.get('/list', this.getAllGroups);
+      this.router.post('/add', this.addUsersToGroup);
   }
 
   async get(req: Request, res: Response) {
@@ -70,6 +71,16 @@ class GroupsRouter extends CRUDRouter {
         return;
     }
     res.json(groups);
+  }
+
+  async addUsersToGroup(req: Request, res: Response) {
+    const { groupId, userIds } = req.body;
+    const { errorMessage } : UserError = await groupsServiceInstance.addUsersToGroup(groupId, userIds);
+    if (errorMessage) {
+      res.status(SERVER_ERROR).send(`Error has happened! ${errorMessage}`);
+      return;
+    }
+    res.sendStatus(OK);
   }
 }
 
