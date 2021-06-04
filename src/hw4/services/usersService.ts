@@ -9,7 +9,6 @@ export class UsersService implements UsersServiceBase {
     controller: UsersControllerBase;
 
     constructor(controllerInst: UsersControllerBase) {
-        // super(controllerInst);
         this.controller = controllerInst;
     }
 

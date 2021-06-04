@@ -1,6 +1,6 @@
 import { ModelDefined } from 'sequelize/types';
 
-import { sequelize } from '../../hw3/data-access';
+import { sequelize } from '../data-access';
 import { AbstractController, UpdateResult } from '../types/abstract';
 import { GroupsResult, UserError } from '../types/common';
 import { GroupMethodResult } from '../types/common';

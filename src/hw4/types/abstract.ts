@@ -32,20 +32,13 @@ export abstract class AbstractService<T, CTR> {
 }
 
 export abstract class CRUDRouter {
-  router: any;
+  router: Router;
   constructor() {
       this.router = Router();
-      // this.router.get('/get/:id', this.get);
-      // this.router.post('/new', this.getValidatorForCreate(), this.create);
-      // this.router.put('/update', this.getValidatorForUpdate(), this.update);
-      // this.router.delete('/remove/:id', this.remove);
   }
 
   abstract get(req: Request, res: Response)
   abstract update(req: Request, res: Response)
   abstract create(req: Request, res: Response)
   abstract remove(req: Request, res: Response)
-
-  // abstract getValidatorForCreate();
-  // abstract getValidatorForUpdate();
 }

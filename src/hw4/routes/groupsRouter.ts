@@ -7,8 +7,6 @@ import { GroupMethodResult, GroupsResult, UserError } from '../types/common';
 import { Group } from '../types/group';
 
 class GroupsRouter extends CRUDRouter {
-    
-  router: any;
 
   constructor() {
       super();

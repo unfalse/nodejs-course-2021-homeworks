@@ -9,8 +9,6 @@ import { CreateUserSchema, createUserSchema, updateUserSchema, UpdateUserSchema,
 
 class UsersRouter extends CRUDRouter {
 
-    router: any;
-
     constructor() {
         super();
         this.router.get('/', this.getRoot);
