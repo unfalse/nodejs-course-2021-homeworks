@@ -1,12 +1,14 @@
 import express from 'express';
 
 import { sequelize } from './data-access';
+import { myCustomLogger } from './middlewares/myCustomLogger';
 import { usersRouter } from './routes';
 import { groupsRouter } from './routes/groupsRouter';
 
 const app = express();
 const port = 3000;
 
+app.use(myCustomLogger);
 app.use(express.json());
 app.use('', usersRouter.router);
 app.use('/groups', groupsRouter.router);
