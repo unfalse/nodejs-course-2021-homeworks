@@ -1,8 +1,8 @@
 import * as Joi from 'joi';
 import {
     ContainerTypes,
-    ValidatedRequest,
     ValidatedRequestSchema,
+    ValidatedRequest,
     createValidator
 } from 'express-joi-validation';
 
