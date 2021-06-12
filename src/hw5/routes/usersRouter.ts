@@ -22,11 +22,11 @@ class UsersRouter extends CRUDRouter {
     async get(req: Request, res: Response) {
         const { id } = req.params;
         if (id) {
-            const { user, errorMessage }: UserMethodResult = await usersServiceInstance.getUser(id);
-            if (!user && errorMessage) {
-                res.status(SERVER_ERROR).send(`Error has happened! ${errorMessage}`);
-                return;
-            }
+            const { user }: UserMethodResult = await usersServiceInstance.getUser(id);
+            // if (!user && errorMessage) {
+                // res.status(SERVER_ERROR).send(`Error has happened! ${errorMessage}`);
+                // return;
+            // }
             res.json(user);
         }
     }
@@ -35,10 +35,10 @@ class UsersRouter extends CRUDRouter {
         const { login, password, age } = req.body;
         const user: User = { login, password, age, id: '', isdeleted: false };
         const { errorMessage }: UserError = await usersServiceInstance.createUser(user);
-        if (errorMessage) {
-            res.status(SERVER_ERROR).send(`Error has happened! ${errorMessage}`);
-            return;
-        }
+        // if (errorMessage) {
+            // res.status(SERVER_ERROR).send(`Error has happened! ${errorMessage}`);
+            // return;
+        // }
         res.sendStatus(OK);
     }
     

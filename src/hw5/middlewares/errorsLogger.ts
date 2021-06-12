@@ -1,12 +1,10 @@
-import { NextFunction } from 'express';
-import {createLogger, transports} from 'winston';
+import { NextFunction, Request, Response } from 'express';
+import { winstonLogger } from '../config';
 
-const winstonLogger = createLogger({
-  transports: [
-    new transports.Console()
-  ]
-});
-
-export const errorsLogger = (req: Request, _res: Response, next: NextFunction) => {
-  winstonLogger.error('test');
+export const errorsLogger = (err: any, req: Request, res: Response, next: NextFunction) => {
+  if (err){
+    winstonLogger.error('Error has happened! Details: ', err);
+    return res.status(500).json({ error: err.toString() });
+  }
+  next();
 }
