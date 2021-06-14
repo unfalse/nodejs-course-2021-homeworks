@@ -1,7 +1,8 @@
 import { ModelDefined, Op } from 'sequelize';
+import { logMethod } from '../logs/logmethod';
 
 import { User, UsersControllerBase } from '../types';
-import { UserError, UserMethodResult, UsersSuggestResult, UsersUpdateResult } from '../types/common';
+import { UserMethodResult, UsersSuggestResult, UsersUpdateResult } from '../types/common';
 import { UpdateUserParams } from '../types/services';
 
 export class UsersController implements UsersControllerBase {
@@ -20,43 +21,56 @@ export class UsersController implements UsersControllerBase {
         const result: UsersUpdateResult = {
             updatedUsers: 0
         };
-        const [updatedUsers]: [number] =
-            // TODO: тут честно, голову сломал, с типами перемудрили мне кажется, а нагуглить не смог,
-            // TODO: как правильно типизировать метод
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            await this.userModel.update(userValues, { where: { login: user.login }, returning: false }) as [number];
-        result.updatedUsers = updatedUsers;
-        return result;
+        try {
+            const [updatedUsers]: [number] =
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                await this.userModel.update(userValues, { where: { login: user.login }, returning: false }) as [number];
+            result.updatedUsers = updatedUsers;
+            return result;
+        }
+        catch(err) {
+            logMethod('updateUser', `user = ${JSON.stringify(user)}`, err);
+        }
     }
 
     async suggestUsers(login: string, limit: number): Promise<UsersSuggestResult> {
-        const result: UsersSuggestResult = {
-            users: null
-        };
-            const users = await this.userModel.findAll({ limit, where: { login: { [Op.like]: `%${login}%` } } });
-            result.users = users;
-        return result;
+        try {
+            return {
+                users: await this.userModel.findAll({ limit, where: { login: { [Op.like]: `%${login}%` } } })
+            }
+        }
+        catch(err) {
+            logMethod('suggestUsers', `login = ${login}, limit = ${limit}`, err);
+        }
     }
 
-    async removeUser(id: string): Promise<UserError> {
-        const result: UserError = {};
+    async removeUser(id: string): Promise<void> {
+        try{
             await this.userModel.destroy({ where: { id } });
-        return result;
+        }
+        catch(err) {
+            logMethod('removeUser', `id = ${id}`, err);
+        }
     }
 
-    async createUser(user: User): Promise<UserError> {
-        const result: UserError = {};
-        await this.userModel.create(user);
-        return result;
+    async createUser(user: User): Promise<void> {
+        try {
+            await this.userModel.create(user);
+        }
+        catch(err) {
+            logMethod('createUser', `user = ${user}`, err);
+        }
     }
 
     async getUser(id: string): Promise<UserMethodResult> {
-        const result: UserMethodResult = {
-            user: null
-        };
-        const user = await this.userModel.findByPk(id);
-        result.user = user;
-        return result;
+        try {
+            return {
+                user: await this.userModel.findByPk(id)
+            };
+        }
+        catch(err) {
+            logMethod('getUser', `id = ${id}`, err);
+        }
     }
 }

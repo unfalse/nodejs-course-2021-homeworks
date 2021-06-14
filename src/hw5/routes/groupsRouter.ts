@@ -21,11 +21,7 @@ class GroupsRouter extends CRUDRouter {
   async get(req: Request, res: Response) {
     const { id } = req.params;
     if (id) {
-        const { group, errorMessage }: GroupMethodResult = await groupsServiceInstance.get(id);
-        if (!group && errorMessage) {
-            res.status(SERVER_ERROR).send(`Error has happened! ${errorMessage}`);
-            return;
-        }
+        const { group }: GroupMethodResult = await groupsServiceInstance.get(id);
         res.json(group);
     }
   }
@@ -33,11 +29,7 @@ class GroupsRouter extends CRUDRouter {
   async create(req: Request, res: Response) {
     const { name, permissions } = req.body;
     const group: Group = { name, permissions, id: '' };
-    const { errorMessage }: UserError = await groupsServiceInstance.create(group);
-    if (errorMessage) {
-        res.status(SERVER_ERROR).send(`Error has happened! ${errorMessage}`);
-        return;
-    }
+    await groupsServiceInstance.create(group);
     res.sendStatus(OK);
   }
 
@@ -45,39 +37,23 @@ class GroupsRouter extends CRUDRouter {
     const { name, permissions } = req.body;
     const group: Group = { name, permissions, id: ''};
     const updateResult: UpdateResult = await groupsServiceInstance.update(group);
-    if (updateResult.errorMessage) {
-        res.status(SERVER_ERROR).send(`Error has happened! ${updateResult.errorMessage}`);
-        return;
-    }
     res.status(OK).send(`Rows updated: ${updateResult.updatedEntities}`);
   }
 
   async remove(req: Request, res: Response) {
     const { id } = req.params;
-    const { errorMessage }: UserError = await groupsServiceInstance.remove(id);
-    if (errorMessage) {
-        res.status(SERVER_ERROR).send(`Error has happened! ${errorMessage}`);
-        return;
-    }
+    await groupsServiceInstance.remove(id);
     res.sendStatus(OK);
   }
 
   async getAllGroups(req: Request, res: Response) {
-    const { groups, errorMessage }: GroupsResult = await groupsServiceInstance.getAllGroups();
-    if (!groups.length && errorMessage) {
-        res.status(SERVER_ERROR).send(`Error has happened! ${errorMessage}`);
-        return;
-    }
+    const { groups }: GroupsResult = await groupsServiceInstance.getAllGroups();
     res.json(groups);
   }
 
   async addUsersToGroup(req: Request, res: Response) {
     const { groupId, userIds } = req.body;
-    const { errorMessage } : UserError = await groupsServiceInstance.addUsersToGroup(groupId, userIds);
-    if (errorMessage) {
-      res.status(SERVER_ERROR).send(`Error has happened! ${errorMessage}`);
-      return;
-    }
+    await groupsServiceInstance.addUsersToGroup(groupId, userIds);
     res.sendStatus(OK);
   }
 }
