@@ -1,7 +1,7 @@
 import { v4 } from 'uuid';
 
 import { UsersControllerBase } from '../types';
-import { UserError, UserMethodResult, UsersSuggestResult, UsersUpdateResult } from '../types/common';
+import { UserMethodResult, UsersSuggestResult, UsersUpdateResult } from '../types/common';
 import { UsersServiceBase } from '../types/services';
 import { User } from '../types/user';
 
@@ -20,11 +20,11 @@ export class UsersService implements UsersServiceBase {
         return this.controller.updateUser(user);
     }
 
-    removeUser(id: string): Promise<UserError> {
+    removeUser(id: string): Promise<void> {
         return this.controller.removeUser(id);
     }
 
-    createUser({ age, login, password }: User): Promise<UserError> {
+    createUser({ age, login, password }: User): Promise<void> {
         const user: User = {
             age,
             id: v4(),

@@ -6,7 +6,7 @@ import { errorsLogger } from './middlewares/errorsLogger';
 import { myCustomLogger } from './middlewares/myCustomLogger';
 import { usersRouter } from './routes';
 import { groupsRouter } from './routes/groupsRouter';
-import './events';
+import './logs/events';
 
 const app = express();
 const port = 3000;
@@ -14,10 +14,9 @@ const port = 3000;
 app.use(express.urlencoded({extended: true})); 
 app.use(express.json());
 app.use(myCustomLogger);
-app.use(errorsLogger);
-app.use(express.json());
 app.use('', usersRouter.router);
 app.use('/groups', groupsRouter.router);
+app.use(errorsLogger);
 
 app.listen(port, async () => {
     console.log(`User service is listening at http://localhost:${port}`);
