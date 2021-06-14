@@ -7,7 +7,6 @@ const loggerFormat = format.printf(({ level, message, timestamp}) =>
 export const winstonLogger = createLogger({
   transports: [
     new transports.Console({
-      level: 'error',
       format: format.combine(
         format.colorize(),
         format.splat(),

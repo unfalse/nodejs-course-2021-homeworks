@@ -1,9 +1,9 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 
 import { sequelize } from './data-access';
 import { errorsLogger } from './middlewares/errorsLogger';
 import { myCustomLogger } from './middlewares/myCustomLogger';
+import { executionTime } from './middlewares/executionTime';
 import { usersRouter } from './routes';
 import { groupsRouter } from './routes/groupsRouter';
 import './logs/events';
@@ -11,6 +11,7 @@ import './logs/events';
 const app = express();
 const port = 3000;
 
+app.use(executionTime);
 app.use(express.urlencoded({extended: true})); 
 app.use(express.json());
 app.use(myCustomLogger);
