@@ -13,7 +13,8 @@
     "hw2-1": "nodemon src/hw2/app.ts",
     "hw3": "nodemon src/hw3/app.ts",
     "hw4": "nodemon src/hw4/app.ts",
-    "hw5": "nodemon src/hw5/app.ts"
+    "hw5": "nodemon src/hw5/app.ts",
+    "hw6": "nodemon src/hw6/app.ts"
   },
   "author": "",
   "license": "ISC",

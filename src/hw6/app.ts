@@ -6,7 +6,9 @@ import { myCustomLogger } from './middlewares/myCustomLogger';
 import { executionTime } from './middlewares/executionTime';
 import { usersRouter } from './routes';
 import { groupsRouter } from './routes/groupsRouter';
-import './logs/events';
+import { setGlobalHandlers } from './logs/events';
+
+setGlobalHandlers();
 
 const app = express();
 const port = 3000;
@@ -21,7 +23,7 @@ app.use(errorsLogger);
 
 app.listen(port, async () => {
     console.log(`User service is listening at http://localhost:${port}`);
-
+    
     try {
         await sequelize.sync();
         console.log('Connection to database has been established');
