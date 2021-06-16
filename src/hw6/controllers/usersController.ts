@@ -2,6 +2,7 @@ import { ModelDefined, Op } from 'sequelize';
 import { logMethod } from '../logs/logmethod';
 
 import { User, UsersControllerBase } from '../types';
+import { MethodResult, UpdateResult } from '../types/abstract';
 import { UserMethodResult, UsersSuggestResult, UsersUpdateResult } from '../types/common';
 import { UpdateUserParams } from '../types/services';
 
@@ -12,21 +13,21 @@ export class UsersController implements UsersControllerBase {
         this.userModel = userModelInst;
     }
 
-    async updateUser(user: User): Promise<UsersUpdateResult> {
+    async updateUser(user: User): Promise<UpdateResult> {
         const userValues: UpdateUserParams = {
             age: user.age,
             login: user.login,
             password: user.password
         };
-        const result: UsersUpdateResult = {
-            updatedUsers: 0
+        const result: UpdateResult = {
+            updatedEntities: 0
         };
         try {
             const [updatedUsers]: [number] =
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 await this.userModel.update(userValues, { where: { login: user.login }, returning: false }) as [number];
-            result.updatedUsers = updatedUsers;
+            result.updatedEntities = updatedUsers;
             return result;
         }
         catch(err) {
@@ -63,14 +64,27 @@ export class UsersController implements UsersControllerBase {
         }
     }
 
-    async getUser(id: string): Promise<UserMethodResult> {
+    async getUser(id: string): Promise<MethodResult<User>> {
         try {
             return {
-                user: await this.userModel.findByPk(id)
+                entity: await this.userModel.findByPk(id)
             };
         }
         catch(err) {
             logMethod('getUser', `id = ${id}`, err);
         }
+    }
+
+    async login(login: string, password: string) {
+        let user = {};
+
+        try {
+            user = await this.userModel.findAll({ limit: 10, where: { login: { [Op.like]: `%${login}%` } } });
+        }
+        catch(err) {
+            logMethod('login', `login = ${login}, password = ${password}`, err);
+        }
+
+        
     }
 }

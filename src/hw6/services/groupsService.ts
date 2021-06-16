@@ -15,7 +15,7 @@ export class GroupsService extends AbstractService<Group, GroupsController> {
         return this.controller.getAllGroups();
     }
 
-    create({ name, permissions }: Group): Promise<UserError> {
+    create({ name, permissions }: Group): Promise<void> {
       const group: Group = {
         id: v4(),
         name,
@@ -24,7 +24,7 @@ export class GroupsService extends AbstractService<Group, GroupsController> {
       return this.controller.create(group);
     }
 
-    remove(id: string): Promise<UserError> {
+    remove(id: string): Promise<void> {
         return this.controller.remove(id);
     }
 
