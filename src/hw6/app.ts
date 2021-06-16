@@ -1,3 +1,5 @@
+import './lib/env';
+
 import express from 'express';
 
 import { sequelize } from './data-access';

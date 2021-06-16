@@ -1,4 +1,4 @@
-import { winstonLogger } from "./config";
+import { winstonLogger } from "../lib/config";
 
 function once(fn, context) { 
     var result;

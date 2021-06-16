@@ -1,4 +1,4 @@
-import { winstonLogger } from "../logs/config";
+import { winstonLogger } from "../lib/config";
 
 export const executionTime = (req, res, next) => {
     const startHrTime = process.hrtime();

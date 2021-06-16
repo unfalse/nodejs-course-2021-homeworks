@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { winstonLogger } from '../logs/config';
+import { winstonLogger } from '../lib/config';
 
 export const errorsLogger = (err: any, req: Request, res: Response, next: NextFunction) => {
   if (err){
