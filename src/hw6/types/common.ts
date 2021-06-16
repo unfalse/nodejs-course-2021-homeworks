@@ -20,7 +20,7 @@ export interface UserMethodResult extends UserError {
     user: Model<User, User>;
 }
 
-export interface GroupMethodResult extends MethodResult {
+export interface GroupMethodResult extends MethodResult<Group> {
     group: Model<Group, Group>;
 }
 

@@ -2,7 +2,7 @@ import { ModelDefined } from 'sequelize/types';
 
 import { sequelize } from '../data-access';
 import { logMethod } from '../logs/logmethod';
-import { AbstractController, UpdateResult } from '../types/abstract';
+import { AbstractController, MethodResult, UpdateResult } from '../types/abstract';
 import { GroupsResult, UserError } from '../types/common';
 import { GroupMethodResult } from '../types/common';
 import { Group } from '../types/group';
@@ -16,20 +16,18 @@ export class GroupsController extends AbstractController<Group> {
         this.userGroupModel = userGroupModelInst;
     }
 
-    async create(group: Group): Promise<UserError> {
-        const result: UserError = {};
+    async create(group: Group): Promise<void> {
         try {
             await this.model.create(group);
-            return result;
         } catch (err) {
             logMethod('GroupsController.create', `group = ${JSON.stringify(group)}`, err);
         }
     }
 
-    async get(id: string): Promise<GroupMethodResult> {
+    async get(id: string): Promise<MethodResult<Group>> {
         try {
             return {
-                group: await this.model.findByPk(id)
+                entity: await this.model.findByPk(id)
             }
         } catch (err) {
             logMethod('GroupsController.create', `id = ${id}`, err);
@@ -49,11 +47,9 @@ export class GroupsController extends AbstractController<Group> {
         }
     }
 
-    async remove(id: string): Promise<UserError> {
-        const result: UserError = {};
+    async remove(id: string): Promise<void> {
         try {
             await this.model.destroy({ where: { id } });
-            return result;
         } catch (err) {
             logMethod('GroupsController.remove', `id = ${id}`, err);
         }
