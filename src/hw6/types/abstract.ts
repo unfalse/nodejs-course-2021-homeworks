@@ -1,12 +1,15 @@
 import { Request, Response, Router } from 'express';
 import { Model, ModelDefined } from 'sequelize';
-import { UserError } from './common';
 
 export interface MethodResult<T> {
     entity: Model<T, T>;
 }
 
-export interface UpdateResult extends UserError {
+export interface MethodResultPlural<T> {
+    entities: Array<Model<T, T>>;
+}
+
+export interface UpdateResult {
     updatedEntities: number;
 }
 
@@ -42,12 +45,12 @@ export abstract class RouterBase {
 }
 
 export abstract class CRUDRouter extends RouterBase {
-  constructor() {
-      super();
-  }
+    constructor() {
+        super();
+    }
 
-  abstract get(req: Request, res: Response)
-  abstract update(req: Request, res: Response)
-  abstract create(req: Request, res: Response)
-  abstract remove(req: Request, res: Response)
+    abstract get(req: Request, res: Response)
+    abstract update(req: Request, res: Response)
+    abstract create(req: Request, res: Response)
+    abstract remove(req: Request, res: Response)
 }

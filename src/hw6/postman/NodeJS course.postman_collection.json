@@ -1,0 +1,331 @@
+{
+	"info": {
+		"_postman_id": "bb209ee7-8102-46a7-89b4-1eef2ed326ef",
+		"name": "NodeJS course",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.localhost:3000/users/get/b32ea223-a753-468a-8394-e3780630a0eb",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"get",
+						"b32ea223-a753-468a-8394-e3780630a0eb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"login\": \"Iskander\",\r\n        \"password\": \"1234\",\r\n        \"age\": 35\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/new",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create group",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"name\": \"writer\",\r\n        \"permissions\": \"READ,WRITE\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/groups/new",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"groups",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addUsersToGroup group",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"groupId\": \"be5bc25b-6306-49f8-ac9a-b7a3fc3ee633\",\r\n        \"userIds\": [\"3dfea2c5-47ae-4209-9a0b-222f1a717758\", \"57984e1d-a7fd-40ef-9c28-10475e4af610\"]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/groups/add",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"groups",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/update",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update group",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"writer\",\r\n    \"permissions\": \"READ,WRITE,SHARE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/groups/update",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"groups",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "suggest users list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.localhost:3000/suggest/k/10",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"suggest",
+						"k",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bulk create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n\t\"login\": \"Iskander\",\r\n\t\"password\": \"1234\",\r\n\t\"age\": 35\r\n},\r\n{\r\n\t\"login\": \"Ivan\",\r\n\t\"password\": \"4536\",\r\n\t\"age\": 34\r\n},\r\n{\r\n\t\"login\": \"Katya\",\r\n\t\"password\": \"324536\",\r\n\t\"age\": 30\r\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/bulkcreate",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bulkcreate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://www.localhost:3000/remove/135949d9-1252-4e4f-a17a-47e8187aacb0",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"remove",
+						"135949d9-1252-4e4f-a17a-47e8187aacb0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete group",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://www.localhost:3000/groups/remove/135949d9-1252-4e4f-a17a-47e8187aacb0",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"groups",
+						"remove",
+						"135949d9-1252-4e4f-a17a-47e8187aacb0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.localhost:3000/list",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all groups",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.localhost:3000/groups/list",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"groups",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get group",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.localhost:3000/groups/get/be5bc25b-6306-49f8-ac9a-b7a3fc3ee633",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"groups",
+						"get",
+						"be5bc25b-6306-49f8-ac9a-b7a3fc3ee633"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

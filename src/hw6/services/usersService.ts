@@ -1,20 +1,20 @@
 import { v4 } from 'uuid';
+
 import { UsersController } from '../controllers';
-import { AbstractService, MethodResult, UpdateResult } from '../types/abstract';
-import { UsersSuggestResult } from '../types/common';
+import { AbstractService, MethodResult, MethodResultPlural, UpdateResult } from '../types/abstract';
 import { User } from '../types/user';
 
 export class UsersService extends AbstractService<User, UsersController> {
-    suggestUsers(login: string, limit: number): Promise<UsersSuggestResult> {
+    suggestUsers(login: string, limit: number): Promise<MethodResultPlural<User>> {
         return this.controller.suggestUsers(login, limit);
     }
 
     update(user: User): Promise<UpdateResult> {
-        return this.controller.updateUser(user);
+        return this.controller.update(user);
     }
 
     remove(id: string): Promise<void> {
-        return this.controller.removeUser(id);
+        return this.controller.remove(id);
     }
 
     create({ age, login, password }: User): Promise<void> {
@@ -25,11 +25,11 @@ export class UsersService extends AbstractService<User, UsersController> {
             password,
             isdeleted: false
         };
-        return this.controller.createUser(user);
+        return this.controller.create(user);
     }
 
     get(id: string): Promise<MethodResult<User>> {
-        return this.controller.getUser(id);
+        return this.controller.get(id);
     }
 
     async login(login: string, password: string) {
