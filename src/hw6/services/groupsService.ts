@@ -1,17 +1,16 @@
 import { v4 } from 'uuid';
 import { GroupsController } from '../controllers';
 
-import { AbstractService, UpdateResult } from '../types/abstract';
-import { GroupMethodResult, GroupsResult, UserError } from '../types/common';
+import { AbstractService, MethodResult, MethodResultPlural, UpdateResult } from '../types/abstract';
 import { Group } from '../types/group';
 import { UserGroup } from '../types/usergroup';
 
 export class GroupsService extends AbstractService<Group, GroupsController> {
-    get(id: string): Promise<GroupMethodResult> {
-      return this.controller.get(id) as Promise<GroupMethodResult>;
+    get(id: string): Promise<MethodResult<Group>> {
+      return this.controller.get(id);
     }
 
-    getAllGroups(): Promise<GroupsResult> {
+    getAllGroups(): Promise<MethodResultPlural<Group>> {
         return this.controller.getAllGroups();
     }
 

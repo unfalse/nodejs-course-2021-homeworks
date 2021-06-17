@@ -2,9 +2,7 @@ import { ModelDefined } from 'sequelize/types';
 
 import { sequelize } from '../data-access';
 import { logMethod } from '../logs/logmethod';
-import { AbstractController, MethodResult, UpdateResult } from '../types/abstract';
-import { GroupsResult, UserError } from '../types/common';
-import { GroupMethodResult } from '../types/common';
+import { AbstractController, MethodResult, MethodResultPlural, UpdateResult } from '../types/abstract';
 import { Group } from '../types/group';
 import { UserGroup } from '../types/usergroup';
 
@@ -34,14 +32,11 @@ export class GroupsController extends AbstractController<Group> {
         }
     }
 
-    async getAllGroups(): Promise<GroupsResult> {
-        const result: GroupsResult = {
-            groups: []
-        };
+    async getAllGroups(): Promise<MethodResultPlural<Group>> {
         try {
-            const groups = await this.model.findAll();
-            result.groups = groups;
-            return result;
+            return {
+                entities: await this.model.findAll()
+            }
         } catch (err) {
             logMethod('GroupsController.getAllGroups', `none`, err);
         }
@@ -73,15 +68,15 @@ export class GroupsController extends AbstractController<Group> {
                 // @ts-ignore
                 await this.model.update(groupValues, { where: { name }, returning: false }) as [number]
             );
-            result.updatedEntities = updatedEntities;
-            return result;
+            return {
+                updatedEntities
+            }
         } catch (err) {
             logMethod('GroupController.update', `name = ${name}, permissions = ${JSON.stringify(permissions)}`, err);
         }
     }
 
-    async addUsersToGroup(userGroups: Array<UserGroup>): Promise<UserError> {
-        const result: UserError = {};
+    async addUsersToGroup(userGroups: Array<UserGroup>): Promise<void> {
         try {
             await sequelize.transaction(async (t) => {
 
@@ -92,7 +87,6 @@ export class GroupsController extends AbstractController<Group> {
                 return userGroup;
 
             });
-            return result;
         } catch (err) {
             logMethod('GroupController.addUsersToGroup', `userGroups = ${JSON.stringify(userGroups)}`, err);
         }

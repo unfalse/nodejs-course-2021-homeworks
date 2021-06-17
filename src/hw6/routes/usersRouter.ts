@@ -1,12 +1,17 @@
 import { Request, Response } from 'express';
-import { MethodResult, UpdateResult } from '../types/abstract';
-import { OK, SERVER_ERROR } from '../models/constants';
 
+import { OK } from '../models/constants';
 import { usersServiceInstance } from '../models/instances';
-import { User } from '../types';
+import { User } from '../types/user';
 import { CRUDRouter } from '../types/abstract';
-import { UsersSuggestResult } from '../types/common';
-import { CreateUserSchema, createUserSchema, updateUserSchema, UpdateUserSchema, ValidatedRequest, validator } from '../validation';
+import {
+    CreateUserSchema,
+    createUserSchema,
+    updateUserSchema,
+    UpdateUserSchema,
+    ValidatedRequest,
+    validator 
+} from '../validation';
 
 class UsersRouter extends CRUDRouter {
 
@@ -24,7 +29,7 @@ class UsersRouter extends CRUDRouter {
     async get(req: Request, res: Response) {
         const { id } = req.params;
         if (id) {
-            const { entity }: MethodResult<User> = await usersServiceInstance.get(id);
+            const { entity } = await usersServiceInstance.get(id);
             res.json(entity);
         }
     }
@@ -39,14 +44,14 @@ class UsersRouter extends CRUDRouter {
     async update(req: ValidatedRequest<UpdateUserSchema>, res: Response) {
         const { login, password, age } = req.body;
         const user: User = { login, password, age, id: '', isdeleted: false };
-        const updateResult: UpdateResult = await usersServiceInstance.update(user);
+        const updateResult = await usersServiceInstance.update(user);
         res.status(OK).send(`Rows updated: ${updateResult.updatedEntities}`);
     }
     
     async suggestUsers(req: Request, res: Response) {
         const { login, limit } = req.params;
-        const { users }: UsersSuggestResult = await usersServiceInstance.suggestUsers(login, +limit);
-        res.send(users);
+        const { entities } = await usersServiceInstance.suggestUsers(login, Number(limit));
+        res.send(entities);
     }
     
     async remove(req: Request, res: Response) {
