@@ -23,7 +23,7 @@ class UsersRouter extends CRUDRouter {
         this.router.put('/update', validator.body(updateUserSchema), this.update);
         this.router.get('/suggest/:login/:limit', this.suggestUsers);
         this.router.delete('/remove/:id', this.remove);
-        this.router.get('/login', this.login);
+        this.router.post('/login', this.login);
     }
 
     async get(req: Request, res: Response) {
@@ -64,6 +64,7 @@ class UsersRouter extends CRUDRouter {
         const { login, password } = req.body;
         // const { user } = 
         await usersServiceInstance.login(login, password);
+        res.sendStatus(OK);
     }
 }
 

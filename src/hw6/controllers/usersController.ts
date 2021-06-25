@@ -1,4 +1,4 @@
-import { Op } from 'sequelize';
+import { Model, Op } from 'sequelize';
 import { logMethod } from '../logs/logmethod';
 
 import { User } from '../types/user';
@@ -63,10 +63,20 @@ export class UsersController extends AbstractController<User> {
     }
 
     async login(login: string, password: string) {
-        let user = {};
+        let users: Array<Model<User, User>> = null;
 
         try {
-            user = await this.model.findAll({ limit: 10, where: { login: { [Op.like]: `%${login}%` } } });
+            users = await this.model.findAll({ limit: 10, where: { login: { [Op.like]: `%${login}%` } } });
+            if (users.length === 1) {
+                const user: User = (users[0].get() as unknown) as User;
+                console.log('user');
+                console.log(user);
+                if (user.login === login && user.password) {
+                    console.log('TRUE');
+                }
+                return;
+            }
+            
         }
         catch(err) {
             logMethod('login', `login = ${login}, password = ${password}`, err);
