@@ -1,5 +1,6 @@
 import { UsersController, GroupsController } from '../controllers';
 import { UsersService, GroupsService } from '../services';
+import { TokenService } from '../services/tokenService';
 import { groupModel } from './group';
 import { userModel } from './user';
 import { userGroupModel } from './userGroup';
@@ -9,3 +10,4 @@ const groupsControllerInstance = new GroupsController(groupModel, userGroupModel
 
 export const usersServiceInstance = new UsersService(usersControllerInstance);
 export const groupsServiceInstance = new GroupsService(groupsControllerInstance);
+export const tokenServiceInstance = new TokenService();

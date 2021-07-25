@@ -7,7 +7,7 @@ import { errorsLogger } from './middlewares/errorsLogger';
 import { myCustomLogger } from './middlewares/myCustomLogger';
 import { executionTime } from './middlewares/executionTime';
 import { usersRouter } from './routes';
-import { groupsRouter } from './routes/groupsRouter';
+import { groupsRouter } from './routes/groups';
 import { setGlobalHandlers } from './logs/events';
 
 setGlobalHandlers();

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { OK } from '../models/constants';
+import { OK, SERVER_ERROR } from '../models/constants';
 import { usersServiceInstance } from '../models/instances';
 import { User } from '../types/user';
 import { CRUDRouter } from '../types/abstract';
@@ -23,14 +23,20 @@ class UsersRouter extends CRUDRouter {
         this.router.put('/update', validator.body(updateUserSchema), this.update);
         this.router.get('/suggest/:login/:limit', this.suggestUsers);
         this.router.delete('/remove/:id', this.remove);
-        this.router.post('/login', this.login);
+        // this.router.post('/login', this.login);
     }
 
     async get(req: Request, res: Response) {
         const { id } = req.params;
+
         if (id) {
-            const { entity } = await usersServiceInstance.get(id);
-            res.json(entity);
+            const result = await usersServiceInstance.get(id);
+
+            if (!result) {
+                res.status(SERVER_ERROR).send('Internal server error');
+                return;
+            }
+            res.json(result.entity);
         }
     }
 
@@ -60,12 +66,12 @@ class UsersRouter extends CRUDRouter {
         res.sendStatus(OK);
     }
 
-    async login(req: Request, res: Response) {
-        const { login, password } = req.body;
-        // const { user } = 
-        await usersServiceInstance.login(login, password);
-        res.sendStatus(OK);
-    }
+    // async login(req: Request, res: Response) {
+    //     const { login, password } = req.body;
+    //     // const { user } = 
+    //     await usersServiceInstance.login(login, password);
+    //     res.sendStatus(OK);
+    // }
 }
 
 const usersRouter = new UsersRouter();

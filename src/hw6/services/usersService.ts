@@ -32,7 +32,11 @@ export class UsersService extends AbstractService<User, UsersController> {
         return this.controller.get(id);
     }
 
-    async login(login: string, password: string) {
-        await this.controller.login(login, password);
+    // async login(login: string, password: string) {
+    //     await this.controller.login(login, password);
+    // }
+
+    findByLogin(login: string) {
+        return this.controller.findByLogin(login);
     }
 }
