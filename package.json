@@ -48,6 +48,7 @@
     "express-joi-validation": "^5.0.0",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
+    "lodash.isobject": "^3.0.2",
     "lodash.isstring": "^4.0.1",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",

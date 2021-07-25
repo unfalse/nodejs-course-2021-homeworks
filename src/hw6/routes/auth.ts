@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
+import isObject from 'lodash.isobject';
 
 import { OK, UNAUTHORIZED } from '../models/constants';
 import { tokenServiceInstance, usersServiceInstance } from '../models/instances';
@@ -9,12 +10,13 @@ import { Auth, TokenAuth } from '../types/auth';
 import { generateAccessToken, generateRefreshToken, verifyToken } from '../lib/tokens';
 import { logMethod } from '../logs/logmethod';
 import { PayloadRefreshToken, TOKEN_TYPES } from '../types/token';
+import { createBodyValid, createBodySchemaTokenValidator } from '../validation/auth';
 
 class AuthRouter extends RouterBase {
     constructor() {
         super();
-        this.router.post('/login', this.login);
-        this.router.post('/refresh-token', this.refreshToken);
+        this.router.post('/login', createBodyValid, this.login);
+        this.router.post('/refresh-token', createBodySchemaTokenValidator, this.refreshToken);
     }
 
     async login(req: Request, res: Response, next: NextFunction) {
@@ -54,10 +56,10 @@ class AuthRouter extends RouterBase {
         try {
             const payload = verifyToken(refreshToken, TOKEN_TYPES.REFRESH);
 
-            // if (!isObject(payload)) {
-            //     res.status(400).json({ message: 'Invalid Token!' });
-            //     return;
-            // }
+            if (!isObject(payload)) {
+                res.status(400).json({ message: 'Invalid Token!' });
+                return;
+            }
 
             const payloadToken = (payload as PayloadRefreshToken);
             const tokenRecord = await tokenServiceInstance.findByTokenId(payloadToken.id);
