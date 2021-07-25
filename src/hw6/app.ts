@@ -6,7 +6,7 @@ import { sequelize } from './data-access';
 import { errorsLogger } from './middlewares/errorsLogger';
 import { myCustomLogger } from './middlewares/myCustomLogger';
 import { executionTime } from './middlewares/executionTime';
-import { usersRouter } from './routes';
+import { authRouter, usersRouter } from './routes';
 import { groupsRouter } from './routes/groups';
 import { setGlobalHandlers } from './logs/events';
 
@@ -21,6 +21,7 @@ app.use(express.json());
 app.use(myCustomLogger);
 app.use('', usersRouter.router);
 app.use('/groups', groupsRouter.router);
+app.use('/auth', authRouter.router);
 app.use(errorsLogger);
 
 app.listen(port, async () => {

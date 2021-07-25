@@ -7,20 +7,20 @@ import { UserGroup } from '../types/usergroup';
 
 export class GroupsService extends AbstractService<Group, GroupsController> {
     get(id: string): Promise<MethodResult<Group>> {
-      return this.controller.get(id);
+        return this.controller.get(id);
     }
 
     getAllGroups(): Promise<MethodResultPlural<Group>> {
         return this.controller.getAllGroups();
     }
 
-    create({ name, permissions }: Group): Promise<void> {
-      const group: Group = {
-        id: v4(),
-        name,
-        permissions
-      };
-      return this.controller.create(group);
+    create({ name, permissions }: Group): Promise<object> {
+        const group: Group = {
+            id: v4(),
+            name,
+            permissions
+        };
+        return this.controller.create(group);
     }
 
     remove(id: string): Promise<void> {
@@ -32,12 +32,12 @@ export class GroupsService extends AbstractService<Group, GroupsController> {
     }
 
     addUsersToGroup(groupId: string, userIds: Array<string>) {
-      const userGroups: Array<UserGroup> = userIds.map(userId => ({
-        id: v4(),
-        groupid: groupId,
-        userid: userId
-      }));
-      return this.controller.addUsersToGroup(userGroups);
+        const userGroups: Array<UserGroup> = userIds.map(userId => ({
+            id: v4(),
+            groupid: groupId,
+            userid: userId
+        }));
+        return this.controller.addUsersToGroup(userGroups);
     }
 }
 

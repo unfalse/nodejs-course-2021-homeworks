@@ -18,13 +18,11 @@ class UsersRouter extends CRUDRouter {
 
     constructor() {
         super();
-        // TODO: add validation for get?
         this.router.get('/get/:id', this.get);
         this.router.post('/new', validator.body(createUserSchema), this.create);
         this.router.put('/update', validator.body(updateUserSchema), this.update);
         this.router.get('/suggest/:login/:limit', checkToken, this.suggestUsers);
         this.router.delete('/remove/:id', this.remove);
-        // this.router.post('/login', this.login);
     }
 
     async get(req: Request, res: Response) {
@@ -70,13 +68,6 @@ class UsersRouter extends CRUDRouter {
         await usersServiceInstance.remove(id);
         res.sendStatus(OK);
     }
-
-    // async login(req: Request, res: Response) {
-    //     const { login, password } = req.body;
-    //     // const { user } = 
-    //     await usersServiceInstance.login(login, password);
-    //     res.sendStatus(OK);
-    // }
 }
 
 const usersRouter = new UsersRouter();

@@ -66,36 +66,11 @@ export class UsersController extends AbstractController<User> {
         }
     }
 
-    // async login(login: string, password: string) {
-    //     let users: Array<Model<User, User>> = null;
-
-    //     try {
-    //         users = await this.model.findAll({ limit: 10, where: { login: { [Op.like]: `%${login}%` } } });
-    //         if (users.length === 1) {
-    //             const user: User = (users[0].get() as unknown) as User;
-    //             console.log('user');
-    //             console.log(user);
-    //             if (user.login === login && user.password) {
-    //                 console.log('TRUE');
-    //                 return;
-    //             }
-    //             return;
-    //         }
-            
-    //     }
-    //     catch(err) {
-    //         logMethod('login', `login = ${login}, password = ${password}`, err);
-    //     }
-    // }
-
     async findByLogin(login: string): Promise<MethodResult<User>> {
         try {
             const user = await this.model.findOne({ where: { login }});
-            
-            // console.log('Controller: ', user);
-
             return {
-                entity: user // await this.model.findOne({ where: { login }})
+                entity: user
             }
         } catch(error) {
             logMethod('findByLogin', `login = ${login}`, error);

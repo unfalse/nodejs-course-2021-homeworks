@@ -14,12 +14,15 @@ export class GroupsController extends AbstractController<Group> {
         this.userGroupModel = userGroupModelInst;
     }
 
-    async create(group: Group): Promise<void> {
+    async create(group: Group): Promise<object> {
+        let resultError;
         try {
             await this.model.create(group);
-        } catch (err) {
-            logMethod('GroupsController.create', `group = ${JSON.stringify(group)}`, err);
+        } catch (error) {
+            logMethod('GroupsController.create', `group = ${JSON.stringify(group)}`, error);
+            resultError = error;
         }
+        return resultError;
     }
 
     async get(id: string): Promise<MethodResult<Group>> {
