@@ -20,7 +20,7 @@ export abstract class AbstractController<T> {
         this.model = modelInst;
     }
 
-    abstract create(entity: T): Promise<void>
+    abstract create(entity: T): Promise<object>
     abstract get(id: string): Promise<MethodResult<T>>
     abstract remove(id: string): Promise<void>
     abstract update(entity: T): Promise<UpdateResult>
@@ -31,7 +31,7 @@ export abstract class AbstractService<T, CTR> {
     constructor(controllerInst: CTR) {
         this.controller = controllerInst;
     }
-    abstract create(entity: T): Promise<void>
+    abstract create(entity: T): Promise<object>
     abstract get(id: string): Promise<MethodResult<T>>
     abstract remove(id: string): Promise<void>
     abstract update(entity: T): Promise<UpdateResult>

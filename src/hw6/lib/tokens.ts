@@ -9,8 +9,8 @@ export const generateAccessToken = async (userId: string): Promise<string> => {
         type: TOKEN_TYPES.ACCESS,
     };
 
-    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: process.env.ACCESS_TOKEN_LIFE,
+    return jwt.sign(payload, process.env.TOKEN_SECRET, {
+        expiresIn: process.env.TOKEN_LIFE,
     });
 };
 

@@ -85,3 +85,6 @@ class AuthRouter extends RouterBase {
     }
 }
 
+const authRouter = new AuthRouter();
+
+export { authRouter };

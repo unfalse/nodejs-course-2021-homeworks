@@ -1,4 +1,4 @@
-import { Model, Op } from 'sequelize';
+import { Op } from 'sequelize';
 import { logMethod } from '../logs/logmethod';
 
 import { User } from '../types/user';
@@ -42,13 +42,16 @@ export class UsersController extends AbstractController<User> {
         }
     }
 
-    async create(user: User): Promise<void> {
+    async create(user: User): Promise<object> {
+        let resultError;
         try {
             await this.model.create(user);
         }
-        catch(err) {
-            logMethod('createUser', `user = ${user}`, err);
+        catch(error) {
+            logMethod('createUser', `user = ${user}`, error);
+            resultError = error;
         }
+        return resultError;
     }
 
     async get(id: string): Promise<MethodResult<User>> {
