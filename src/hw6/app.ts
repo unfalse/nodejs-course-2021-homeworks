@@ -6,8 +6,7 @@ import { sequelize } from './data-access';
 import { errorsLogger } from './middlewares/errorsLogger';
 import { myCustomLogger } from './middlewares/myCustomLogger';
 import { executionTime } from './middlewares/executionTime';
-import { authRouter, usersRouter } from './routes';
-import { groupsRouter } from './routes/groups';
+import { authRouter, usersRouter, groupsRouter } from './routes';
 import { setGlobalHandlers } from './logs/events';
 
 setGlobalHandlers();
