@@ -1,1 +1,3 @@
-export { usersRouter } from './usersRouter';
+export { usersRouter } from './users';
+export { groupsRouter } from './groups';
+export { authRouter } from './auth';

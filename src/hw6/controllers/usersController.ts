@@ -1,43 +1,31 @@
-import { ModelDefined, Op } from 'sequelize';
+import { Op } from 'sequelize';
 import { logMethod } from '../logs/logmethod';
 
-import { User, UsersControllerBase } from '../types';
-import { UserMethodResult, UsersSuggestResult, UsersUpdateResult } from '../types/common';
-import { UpdateUserParams } from '../types/services';
+import { User } from '../types/user';
+import { AbstractController, MethodResult, MethodResultPlural, UpdateResult } from '../types/abstract';
 
-export class UsersController implements UsersControllerBase {
-    userModel: ModelDefined<User, User>;
-
-    constructor(userModelInst: ModelDefined<User, User>) {
-        this.userModel = userModelInst;
-    }
-
-    async updateUser(user: User): Promise<UsersUpdateResult> {
-        const userValues: UpdateUserParams = {
-            age: user.age,
-            login: user.login,
-            password: user.password
-        };
-        const result: UsersUpdateResult = {
-            updatedUsers: 0
-        };
+export class UsersController extends AbstractController<User> {
+    async update(user: User): Promise<UpdateResult> {
         try {
-            const [updatedUsers]: [number] =
+            const [updatedEntities]: [number] =
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                await this.userModel.update(userValues, { where: { login: user.login }, returning: false }) as [number];
-            result.updatedUsers = updatedUsers;
-            return result;
+                await this.model.update({
+                    age: user.age,
+                    login: user.login,
+                    password: user.password
+                }, { where: { login: user.login }, returning: false }) as [number];
+            return { updatedEntities };
         }
         catch(err) {
             logMethod('updateUser', `user = ${JSON.stringify(user)}`, err);
         }
     }
 
-    async suggestUsers(login: string, limit: number): Promise<UsersSuggestResult> {
+    async suggestUsers(login: string, limit: number): Promise<MethodResultPlural<User>> {
         try {
             return {
-                users: await this.userModel.findAll({ limit, where: { login: { [Op.like]: `%${login}%` } } })
+                entities: await this.model.findAll({ limit, where: { login: { [Op.like]: `%${login}%` } } })
             }
         }
         catch(err) {
@@ -45,32 +33,49 @@ export class UsersController implements UsersControllerBase {
         }
     }
 
-    async removeUser(id: string): Promise<void> {
+    async remove(id: string): Promise<void> {
         try{
-            await this.userModel.destroy({ where: { id } });
+            await this.model.destroy({ where: { id } });
         }
         catch(err) {
             logMethod('removeUser', `id = ${id}`, err);
         }
     }
 
-    async createUser(user: User): Promise<void> {
+    async create(user: User): Promise<object> {
+        let resultError;
         try {
-            await this.userModel.create(user);
+            await this.model.create(user);
         }
-        catch(err) {
-            logMethod('createUser', `user = ${user}`, err);
+        catch(error) {
+            logMethod('createUser', `user = ${user}`, error);
+            console.log(JSON.stringify(error, null, 4));
+            resultError = error;
         }
+        return resultError;
     }
 
-    async getUser(id: string): Promise<UserMethodResult> {
+    async get(id: string): Promise<MethodResult<User>> {
         try {
             return {
-                user: await this.userModel.findByPk(id)
+                entity: await this.model.findByPk(id)
             };
         }
         catch(err) {
             logMethod('getUser', `id = ${id}`, err);
+            return;
+        }
+    }
+
+    async findByLogin(login: string): Promise<MethodResult<User>> {
+        try {
+            const user = await this.model.findOne({ where: { login }});
+            return {
+                entity: user
+            }
+        } catch(error) {
+            logMethod('findByLogin', `login = ${login}`, error);
+            return;
         }
     }
 }

@@ -1,5 +1,7 @@
 {
     "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
     "[typescript]": {
         "editor.formatOnSave": false
     },
@@ -11,5 +13,9 @@
     },
     "eslint.alwaysShowStatus": true,
     "prettier.enableDebugLogs": true,
-    "prettier.enable": true
+    "prettier.enable": true,
+    "editor.detectIndentation": false,
+    "prettier.tabWidth": 4,
+    "vetur.format.options.tabSize": 4,
+    "typescript.format.enable": false
 }

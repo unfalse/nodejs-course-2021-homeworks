@@ -1,7 +1,7 @@
 import { DataTypes, ModelDefined } from 'sequelize';
 
 import { sequelize } from '../data-access';
-import { User as UserType } from '../types';
+import { User as UserType } from '../types/user';
 import { UserInterface } from '../types/model';
 
 export const userModel: ModelDefined<UserType, UserType> = sequelize.define<UserInterface>('User', {
