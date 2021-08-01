@@ -2,6 +2,10 @@ import { TokenController } from '../controllers/tokenController';
 import { MethodResult, UpdateResult } from '../types/abstract';
 import { TokenModel, TokenModelAuth } from '../types/token';
 
+interface CreateOrUpdateByUserId extends UpdateResult {
+    errorFlag?: boolean;
+}
+
 export class TokenService {
     controller: TokenController;
 
@@ -29,14 +33,17 @@ export class TokenService {
         return this.controller.findByTokenId(tokenId);
     }
 
-    async createOrUpdateByUserId(tokenId: TokenModelAuth['tokenId'], userId: TokenModelAuth['userId']): Promise<UpdateResult> {
+    async createOrUpdateByUserId(tokenId: TokenModelAuth['tokenId'], userId: TokenModelAuth['userId']): Promise<CreateOrUpdateByUserId> {
         const tokenRecord = tokenId && (await this.controller.findByUserId(userId));
 
         if (tokenRecord) {
             return await this.controller.updateByUserId({ tokenId, userId });
         }
 
-        await this.controller.add({ tokenId, userId });
-        return;
+        const errorFlag = await this.controller.add({ tokenId, userId });
+        return {
+            updatedEntities: 0,
+            errorFlag
+        }
     }
 }

@@ -79,7 +79,7 @@ export class GroupsController extends AbstractController<Group> {
         }
     }
 
-    async addUsersToGroup(userGroups: Array<UserGroup>): Promise<void> {
+    async addUsersToGroup(userGroups: Array<UserGroup>): Promise<boolean> {
         try {
             await sequelize.transaction(async (t) => {
 
@@ -90,8 +90,10 @@ export class GroupsController extends AbstractController<Group> {
                 return userGroup;
 
             });
+            return false;
         } catch (err) {
             logMethod('GroupController.addUsersToGroup', `userGroups = ${JSON.stringify(userGroups)}`, err);
+            return true;
         }
     }
 }

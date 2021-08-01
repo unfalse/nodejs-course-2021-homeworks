@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import isObject from 'lodash.isobject';
 
-import { OK, UNAUTHORIZED } from '../models/constants';
+import { BAD_REQUEST, OK, SERVER_ERROR, UNAUTHORIZED } from '../models/constants';
 import { tokenServiceInstance, usersServiceInstance } from '../models/instances';
 import { RouterBase } from '../types/abstract';
 import { Auth, TokenAuth } from '../types/auth';
@@ -41,7 +41,11 @@ class AuthRouter extends RouterBase {
             const accessToken = await generateAccessToken(user.id);
             const refreshToken = generateRefreshToken();
 
-            await tokenServiceInstance.createOrUpdateByUserId(refreshToken.id, user.id);
+            const { errorFlag = false } = await tokenServiceInstance.createOrUpdateByUserId(refreshToken.id, user.id);
+            if (errorFlag) {
+                res.status(SERVER_ERROR).send('Can\'t create or update user');
+                return;
+            }
 
             res.status(OK).json({ accessToken, refreshToken: refreshToken.token });
         } catch(error) {
@@ -57,7 +61,7 @@ class AuthRouter extends RouterBase {
             const payload = verifyToken(refreshToken, TOKEN_TYPES.REFRESH);
 
             if (!isObject(payload)) {
-                res.status(400).json({ message: 'Invalid Token!' });
+                res.status(BAD_REQUEST).json({ message: 'Invalid Token!' });
                 return;
             }
 
@@ -65,20 +69,20 @@ class AuthRouter extends RouterBase {
             const tokenRecord = await tokenServiceInstance.findByTokenId(payloadToken.id);
 
             if (!tokenRecord) {
-                res.status(400).json({ message: 'Invalid Token!' });
+                res.status(BAD_REQUEST).json({ message: 'Invalid Token!' });
                 return;
             }
 
             const newRefreshToken = generateRefreshToken();
             await tokenServiceInstance.updateByTokenId({ tokenId: newRefreshToken.id });
 
-            res.status(200).json({ refreshToken: newRefreshToken.token });
+            res.status(OK).json({ refreshToken: newRefreshToken.token });
         } catch (error) {
             if (error instanceof TokenExpiredError) {
-                res.status(400).json({ message: 'Token expired!' });
+                res.status(BAD_REQUEST).json({ message: 'Token expired!' });
                 return;
             } else if (error instanceof JsonWebTokenError) {
-                res.status(400).json({ message: 'Invalid Token!' });
+                res.status(BAD_REQUEST).json({ message: 'Invalid Token!' });
                 return;
             }
 

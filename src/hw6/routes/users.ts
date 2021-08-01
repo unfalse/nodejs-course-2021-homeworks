@@ -12,7 +12,6 @@ import {
     ValidatedRequest,
     validator 
 } from '../validation';
-import { checkToken } from '../middlewares/auth';
 
 class UsersRouter extends CRUDRouter {
 
@@ -21,7 +20,7 @@ class UsersRouter extends CRUDRouter {
         this.router.get('/get/:id', this.get);
         this.router.post('/new', validator.body(createUserSchema), this.create);
         this.router.put('/update', validator.body(updateUserSchema), this.update);
-        this.router.get('/suggest/:login/:limit', checkToken, this.suggestUsers);
+        this.router.get('/suggest/:login/:limit', this.suggestUsers);
         this.router.delete('/remove/:id', this.remove);
     }
 

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { checkToken } from '../middlewares/auth';
+// import { checkToken } from '../middlewares/auth';
 
-import { OK } from '../models/constants';
+import { OK, SERVER_ERROR } from '../models/constants';
 import { groupsServiceInstance } from '../models/instances';
 import { CRUDRouter, UpdateResult } from '../types/abstract';
 import { Group } from '../types/group';
@@ -20,7 +20,7 @@ class GroupsRouter extends CRUDRouter {
       super();
       this.router.get('/get/:id', this.get);
       this.router.post('/new', validator.body(createGroupSchema), this.create);
-      this.router.put('/update', checkToken, validator.body(updateGroupSchema), this.update);
+      this.router.put('/update', validator.body(updateGroupSchema), this.update);
       this.router.delete('/remove/:id', this.remove);
       this.router.get('/list', this.getAllGroups);
       this.router.post('/add', this.addUsersToGroup);
@@ -61,8 +61,13 @@ class GroupsRouter extends CRUDRouter {
 
   async addUsersToGroup(req: Request, res: Response) {
     const { groupId, userIds } = req.body;
-    await groupsServiceInstance.addUsersToGroup(groupId, userIds);
-    res.sendStatus(OK);
+    const errorFlag = await groupsServiceInstance.addUsersToGroup(groupId, userIds);
+    if (errorFlag) {
+        res.sendStatus(SERVER_ERROR);
+    } else {
+        res.sendStatus(OK);
+    }
+    
   }
 }
 

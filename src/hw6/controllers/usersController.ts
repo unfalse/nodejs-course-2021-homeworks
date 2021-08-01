@@ -49,6 +49,7 @@ export class UsersController extends AbstractController<User> {
         }
         catch(error) {
             logMethod('createUser', `user = ${user}`, error);
+            console.log(JSON.stringify(error, null, 4));
             resultError = error;
         }
         return resultError;

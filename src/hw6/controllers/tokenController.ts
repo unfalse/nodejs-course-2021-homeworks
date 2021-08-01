@@ -12,12 +12,14 @@ export class TokenController {
         this.model = modelInst;
     }
 
-    async add(tokenAuth: TokenModelAuth): Promise<void> {
+    async add(tokenAuth: TokenModelAuth): Promise<boolean> {
         try {
             await this.model.create({ ...tokenAuth, id: v4() });
         } catch (error) {
             logMethod('add', `tokenAuth = ${tokenAuth}`, error);
+            return true;
         }
+        return false;
     }
 
     async updateByUserId(tokenAuth: TokenModelAuth): Promise<UpdateResult> {

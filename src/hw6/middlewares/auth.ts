@@ -8,7 +8,9 @@ import { TOKEN_TYPES } from '../types/token';
 
 export const checkToken = async (req: Request, res: Response, next: NextFunction) => {
     const accessToken = req.headers['x-access-token'];
-
+    if(req.path === '/auth/login') {
+        return next();
+    }
     try {
         if (!accessToken) {
             res.status(FORBIDDEN).send({ message: 'No token provided!' });

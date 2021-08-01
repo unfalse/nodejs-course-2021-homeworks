@@ -9,9 +9,15 @@
 			"name": "get user",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4ZjczOS01ZjkwLTQ2M2ItYjQwZC00NGJlNmE4M2Y4YjYiLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiaWF0IjoxNjI3ODAzNDQ3LCJleHAiOjE2Mjc4MDM1Njd9.Ut2ZM-ZPsaow30qdWKhDWKtHElX06G9HdEKGYAu7gug",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://www.localhost:3000/users/get/b32ea223-a753-468a-8394-e3780630a0eb",
+					"raw": "http://www.localhost:3000/get/b32ea223-a753-468a-8394-e3780630a0eb",
 					"protocol": "http",
 					"host": [
 						"www",
@@ -19,7 +25,6 @@
 					],
 					"port": "3000",
 					"path": [
-						"users",
 						"get",
 						"b32ea223-a753-468a-8394-e3780630a0eb"
 					]
@@ -31,10 +36,16 @@
 			"name": "create user",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4ZjczOS01ZjkwLTQ2M2ItYjQwZC00NGJlNmE4M2Y4YjYiLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiaWF0IjoxNjI3ODAzODY2LCJleHAiOjE2Mjc4MDUwNjZ9.pF3fsRfqsypuKQbJrjgVcCMH1HpvMcdZc3BSA5L-Hj0",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\r\n        \"login\": \"Iskander\",\r\n        \"password\": \"1234\",\r\n        \"age\": 35\r\n    }",
+					"raw": "    {\r\n        \"login\": \"Candy\",\r\n        \"password\": \"12345678\",\r\n        \"age\": 35\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -60,10 +71,16 @@
 			"name": "create group",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4ZjczOS01ZjkwLTQ2M2ItYjQwZC00NGJlNmE4M2Y4YjYiLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiaWF0IjoxNjI3ODAzODY2LCJleHAiOjE2Mjc4MDUwNjZ9.pF3fsRfqsypuKQbJrjgVcCMH1HpvMcdZc3BSA5L-Hj0",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\r\n        \"name\": \"writer\",\r\n        \"permissions\": \"READ,WRITE\"\r\n    }",
+					"raw": "    {\r\n        \"name\": \"group256\",\r\n        \"permissions\": \"READ,WRITE\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -90,10 +107,16 @@
 			"name": "addUsersToGroup group",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4ZjczOS01ZjkwLTQ2M2ItYjQwZC00NGJlNmE4M2Y4YjYiLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiaWF0IjoxNjI3ODAzODY2LCJleHAiOjE2Mjc4MDUwNjZ9.pF3fsRfqsypuKQbJrjgVcCMH1HpvMcdZc3BSA5L-Hj0",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\r\n        \"groupId\": \"be5bc25b-6306-49f8-ac9a-b7a3fc3ee633\",\r\n        \"userIds\": [\"3dfea2c5-47ae-4209-9a0b-222f1a717758\", \"57984e1d-a7fd-40ef-9c28-10475e4af610\"]\r\n    }",
+					"raw": "    {\r\n        \"groupId\": \"c8b36b59-d478-4536-a900-4cf9f45a9a8d\",\r\n        \"userIds\": [\"edaa698d-6c4a-4f09-b98b-c7318ee0a0b0\", \"9d139d52-7fd9-4e01-b289-d7d92b420600\"]\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -120,10 +143,21 @@
 			"name": "update user",
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4ZjczOS01ZjkwLTQ2M2ItYjQwZC00NGJlNmE4M2Y4YjYiLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiaWF0IjoxNjI3ODAzODY2LCJleHAiOjE2Mjc4MDUwNjZ9.pF3fsRfqsypuKQbJrjgVcCMH1HpvMcdZc3BSA5L-Hj0",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "http://www.localhost:3000/update",
@@ -165,28 +199,6 @@
 					"path": [
 						"groups",
 						"update"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "suggest users list",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://www.localhost:3000/suggest/k/10",
-					"protocol": "http",
-					"host": [
-						"www",
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"suggest",
-						"k",
-						"10"
 					]
 				}
 			},
@@ -265,26 +277,6 @@
 			"response": []
 		},
 		{
-			"name": "list users",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://www.localhost:3000/list",
-					"protocol": "http",
-					"host": [
-						"www",
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"list"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "get all groups",
 			"request": {
 				"method": "GET",
@@ -322,6 +314,103 @@
 						"groups",
 						"get",
 						"be5bc25b-6306-49f8-ac9a-b7a3fc3ee633"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByLogin",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "auth/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\": \"alisa\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/auth/login",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth/refresh-token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4ZjczOS01ZjkwLTQ2M2ItYjQwZC00NGJlNmE4M2Y4YjYiLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiaWF0IjoxNjI3MjQyMzA0LCJleHAiOjE2MjcyNDI0MjR9.frpB2PCKhfHp7UPPYrtvIWwF_rNH6qBqQE5PiiCoUAg\",\r\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ0MWY0M2VmLWY1OWEtNDdkNi1iZTc5LTg4MmRmMTRjYzYzNiIsInR5cGUiOiJSRUZSRVNIX1RPS0VOIiwiaWF0IjoxNjI3MjQyMzA0LCJleHAiOjE2MjcyNDI1NDR9.GNDHRBNZJKUOGoK-A97sX36Rdu3v-uVxB8StW3ZXmpQ\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/auth/refresh-token",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"refresh-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "suggest/:login/:limit",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4ZjczOS01ZjkwLTQ2M2ItYjQwZC00NGJlNmE4M2Y4YjYiLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiaWF0IjoxNjI3ODAzNDQ3LCJleHAiOjE2Mjc4MDM1Njd9.Ut2ZM-ZPsaow30qdWKhDWKtHElX06G9HdEKGYAu7gug",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://www.localhost:3000/suggest/k/10",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"suggest",
+						"k",
+						"10"
 					]
 				}
 			},
