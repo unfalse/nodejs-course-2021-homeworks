@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "bb209ee7-8102-46a7-89b4-1eef2ed326ef",
+		"name": "NodeJS course",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4ZjczOS01ZjkwLTQ2M2ItYjQwZC00NGJlNmE4M2Y4YjYiLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiaWF0IjoxNjI3ODAzNDQ3LCJleHAiOjE2Mjc4MDM1Njd9.Ut2ZM-ZPsaow30qdWKhDWKtHElX06G9HdEKGYAu7gug",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://www.localhost:3000/get/b32ea223-a753-468a-8394-e3780630a0eb",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"get",
+						"b32ea223-a753-468a-8394-e3780630a0eb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4ZjczOS01ZjkwLTQ2M2ItYjQwZC00NGJlNmE4M2Y4YjYiLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiaWF0IjoxNjI3ODAzODY2LCJleHAiOjE2Mjc4MDUwNjZ9.pF3fsRfqsypuKQbJrjgVcCMH1HpvMcdZc3BSA5L-Hj0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"login\": \"Candy\",\r\n        \"password\": \"12345678\",\r\n        \"age\": 35\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/new",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create group",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4ZjczOS01ZjkwLTQ2M2ItYjQwZC00NGJlNmE4M2Y4YjYiLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiaWF0IjoxNjI3ODAzODY2LCJleHAiOjE2Mjc4MDUwNjZ9.pF3fsRfqsypuKQbJrjgVcCMH1HpvMcdZc3BSA5L-Hj0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"name\": \"group256\",\r\n        \"permissions\": \"READ,WRITE\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/groups/new",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"groups",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addUsersToGroup group",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4ZjczOS01ZjkwLTQ2M2ItYjQwZC00NGJlNmE4M2Y4YjYiLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiaWF0IjoxNjI3ODAzODY2LCJleHAiOjE2Mjc4MDUwNjZ9.pF3fsRfqsypuKQbJrjgVcCMH1HpvMcdZc3BSA5L-Hj0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"groupId\": \"c8b36b59-d478-4536-a900-4cf9f45a9a8d\",\r\n        \"userIds\": [\"edaa698d-6c4a-4f09-b98b-c7318ee0a0b0\", \"9d139d52-7fd9-4e01-b289-d7d92b420600\"]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/groups/add",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"groups",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4ZjczOS01ZjkwLTQ2M2ItYjQwZC00NGJlNmE4M2Y4YjYiLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiaWF0IjoxNjI3ODAzODY2LCJleHAiOjE2Mjc4MDUwNjZ9.pF3fsRfqsypuKQbJrjgVcCMH1HpvMcdZc3BSA5L-Hj0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/update",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update group",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"writer\",\r\n    \"permissions\": \"READ,WRITE,SHARE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/groups/update",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"groups",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bulk create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n\t\"login\": \"Iskander\",\r\n\t\"password\": \"1234\",\r\n\t\"age\": 35\r\n},\r\n{\r\n\t\"login\": \"Ivan\",\r\n\t\"password\": \"4536\",\r\n\t\"age\": 34\r\n},\r\n{\r\n\t\"login\": \"Katya\",\r\n\t\"password\": \"324536\",\r\n\t\"age\": 30\r\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/bulkcreate",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bulkcreate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://www.localhost:3000/remove/135949d9-1252-4e4f-a17a-47e8187aacb0",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"remove",
+						"135949d9-1252-4e4f-a17a-47e8187aacb0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete group",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://www.localhost:3000/groups/remove/135949d9-1252-4e4f-a17a-47e8187aacb0",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"groups",
+						"remove",
+						"135949d9-1252-4e4f-a17a-47e8187aacb0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all groups",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.localhost:3000/groups/list",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"groups",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get group",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.localhost:3000/groups/get/be5bc25b-6306-49f8-ac9a-b7a3fc3ee633",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"groups",
+						"get",
+						"be5bc25b-6306-49f8-ac9a-b7a3fc3ee633"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByLogin",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "auth/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\": \"alisa\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/auth/login",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth/refresh-token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4ZjczOS01ZjkwLTQ2M2ItYjQwZC00NGJlNmE4M2Y4YjYiLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiaWF0IjoxNjI3MjQyMzA0LCJleHAiOjE2MjcyNDI0MjR9.frpB2PCKhfHp7UPPYrtvIWwF_rNH6qBqQE5PiiCoUAg\",\r\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ0MWY0M2VmLWY1OWEtNDdkNi1iZTc5LTg4MmRmMTRjYzYzNiIsInR5cGUiOiJSRUZSRVNIX1RPS0VOIiwiaWF0IjoxNjI3MjQyMzA0LCJleHAiOjE2MjcyNDI1NDR9.GNDHRBNZJKUOGoK-A97sX36Rdu3v-uVxB8StW3ZXmpQ\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.localhost:3000/auth/refresh-token",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"refresh-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "suggest/:login/:limit",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkYWI4ZjczOS01ZjkwLTQ2M2ItYjQwZC00NGJlNmE4M2Y4YjYiLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiaWF0IjoxNjI3ODAzNDQ3LCJleHAiOjE2Mjc4MDM1Njd9.Ut2ZM-ZPsaow30qdWKhDWKtHElX06G9HdEKGYAu7gug",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://www.localhost:3000/suggest/k/10",
+					"protocol": "http",
+					"host": [
+						"www",
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"suggest",
+						"k",
+						"10"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
