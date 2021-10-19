@@ -26,7 +26,7 @@ export const checkToken = async (req: Request, res: Response, next: NextFunction
         return next();
     } catch (error) {
         if (error instanceof TokenExpiredError) {
-            res.status(BAD_REQUEST).json({ message: 'Token expired!' });
+            res.status(403).json({ message: 'Token expired!' });
             return;
         } else if (error instanceof JsonWebTokenError) {
             res.status(BAD_REQUEST).json({ message: 'Invalid Token!' });
