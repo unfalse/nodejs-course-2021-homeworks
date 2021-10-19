@@ -14,7 +14,7 @@ import { setGlobalHandlers } from './logs/events';
 setGlobalHandlers();
 
 const app = express();
-const port = 3000;
+const port = 3555;
 
 app.use(executionTime);
 app.use(express.urlencoded({extended: true})); 
