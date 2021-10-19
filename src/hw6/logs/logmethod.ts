@@ -1,4 +1,4 @@
-import { winstonLogger } from "./config";
+import { winstonLogger } from "../lib/config";
 
 export const logMethod = (methodName: string, args: string, error: Error) => {
     winstonLogger.error(`Method ${methodName}`);

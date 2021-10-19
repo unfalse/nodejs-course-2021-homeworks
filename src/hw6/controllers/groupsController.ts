@@ -2,9 +2,7 @@ import { ModelDefined } from 'sequelize/types';
 
 import { sequelize } from '../data-access';
 import { logMethod } from '../logs/logmethod';
-import { AbstractController, UpdateResult } from '../types/abstract';
-import { GroupsResult, UserError } from '../types/common';
-import { GroupMethodResult } from '../types/common';
+import { AbstractController, MethodResult, MethodResultPlural, UpdateResult } from '../types/abstract';
 import { Group } from '../types/group';
 import { UserGroup } from '../types/usergroup';
 
@@ -16,44 +14,40 @@ export class GroupsController extends AbstractController<Group> {
         this.userGroupModel = userGroupModelInst;
     }
 
-    async create(group: Group): Promise<UserError> {
-        const result: UserError = {};
+    async create(group: Group): Promise<object> {
+        let resultError;
         try {
             await this.model.create(group);
-            return result;
-        } catch (err) {
-            logMethod('GroupsController.create', `group = ${JSON.stringify(group)}`, err);
+        } catch (error) {
+            logMethod('GroupsController.create', `group = ${JSON.stringify(group)}`, error);
+            resultError = error;
         }
+        return resultError;
     }
 
-    async get(id: string): Promise<GroupMethodResult> {
+    async get(id: string): Promise<MethodResult<Group>> {
         try {
             return {
-                group: await this.model.findByPk(id)
+                entity: await this.model.findByPk(id)
             }
         } catch (err) {
             logMethod('GroupsController.create', `id = ${id}`, err);
         }
     }
 
-    async getAllGroups(): Promise<GroupsResult> {
-        const result: GroupsResult = {
-            groups: []
-        };
+    async getAllGroups(): Promise<MethodResultPlural<Group>> {
         try {
-            const groups = await this.model.findAll();
-            result.groups = groups;
-            return result;
+            return {
+                entities: await this.model.findAll()
+            }
         } catch (err) {
             logMethod('GroupsController.getAllGroups', `none`, err);
         }
     }
 
-    async remove(id: string): Promise<UserError> {
-        const result: UserError = {};
+    async remove(id: string): Promise<void> {
         try {
             await this.model.destroy({ where: { id } });
-            return result;
         } catch (err) {
             logMethod('GroupsController.remove', `id = ${id}`, err);
         }
@@ -77,15 +71,15 @@ export class GroupsController extends AbstractController<Group> {
                 // @ts-ignore
                 await this.model.update(groupValues, { where: { name }, returning: false }) as [number]
             );
-            result.updatedEntities = updatedEntities;
-            return result;
+            return {
+                updatedEntities
+            }
         } catch (err) {
             logMethod('GroupController.update', `name = ${name}, permissions = ${JSON.stringify(permissions)}`, err);
         }
     }
 
-    async addUsersToGroup(userGroups: Array<UserGroup>): Promise<UserError> {
-        const result: UserError = {};
+    async addUsersToGroup(userGroups: Array<UserGroup>): Promise<boolean> {
         try {
             await sequelize.transaction(async (t) => {
 
@@ -96,9 +90,10 @@ export class GroupsController extends AbstractController<Group> {
                 return userGroup;
 
             });
-            return result;
+            return false;
         } catch (err) {
             logMethod('GroupController.addUsersToGroup', `userGroups = ${JSON.stringify(userGroups)}`, err);
+            return true;
         }
     }
 }

@@ -1,9 +1,15 @@
 import { Request, Response, Router } from 'express';
-import { ModelDefined } from 'sequelize';
-import { UserError } from './common';
+import { Model, ModelDefined } from 'sequelize';
 
-export interface MethodResult extends UserError { }
-export interface UpdateResult extends UserError {
+export interface MethodResult<T> {
+    entity: Model<T, T>;
+}
+
+export interface MethodResultPlural<T> {
+    entities: Array<Model<T, T>>;
+}
+
+export interface UpdateResult {
     updatedEntities: number;
 }
 
@@ -14,9 +20,9 @@ export abstract class AbstractController<T> {
         this.model = modelInst;
     }
 
-    abstract create(entity: T): Promise<UserError>
-    abstract get(id: string): Promise<MethodResult>
-    abstract remove(id: string): Promise<UserError>
+    abstract create(entity: T): Promise<object>
+    abstract get(id: string): Promise<MethodResult<T>>
+    abstract remove(id: string): Promise<void>
     abstract update(entity: T): Promise<UpdateResult>
 }
 
@@ -25,20 +31,26 @@ export abstract class AbstractService<T, CTR> {
     constructor(controllerInst: CTR) {
         this.controller = controllerInst;
     }
-    abstract create(entity: T): Promise<UserError>
-    abstract get(id: string): Promise<MethodResult>
-    abstract remove(id: string): Promise<UserError>
+    abstract create(entity: T): Promise<object>
+    abstract get(id: string): Promise<MethodResult<T>>
+    abstract remove(id: string): Promise<void>
     abstract update(entity: T): Promise<UpdateResult>
 }
 
-export abstract class CRUDRouter {
-  router: Router;
-  constructor() {
-      this.router = Router();
-  }
+export abstract class RouterBase {
+    router: Router;
+    constructor() {
+        this.router = Router();
+    }
+}
 
-  abstract get(req: Request, res: Response)
-  abstract update(req: Request, res: Response)
-  abstract create(req: Request, res: Response)
-  abstract remove(req: Request, res: Response)
+export abstract class CRUDRouter extends RouterBase {
+    constructor() {
+        super();
+    }
+
+    abstract get(req: Request, res: Response)
+    abstract update(req: Request, res: Response)
+    abstract create(req: Request, res: Response)
+    abstract remove(req: Request, res: Response)
 }
